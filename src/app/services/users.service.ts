@@ -20,7 +20,7 @@ export class UsersService {
     };
     return this.http.get<User[]>(this.url, { params });
   }
-  // only subject was not working!
+  
   subject = new BehaviorSubject<User>(null);
 
   raiseSubject(data: User) {
