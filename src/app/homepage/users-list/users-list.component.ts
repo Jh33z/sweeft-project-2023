@@ -9,7 +9,6 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class UsersListComponent implements OnInit {
   constructor(private usersService: UsersService) {}
-  usersData: User[] = [];
   filteredUsers: User[] = [];
 
   currentPage = 1;
@@ -17,10 +16,16 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.getAllUsers().subscribe((allData) => {
-      this.usersData = allData;
       this.filteredUsers = allData;
     });
     this.loadUsers();
+
+    this.usersService.paginationSubject.subscribe(() => {
+      window.scrollTo(0, 0);
+      this.filteredUsers.splice(7, this.filteredUsers.length - 1);
+      this.currentPage = 1;
+      this.pageSize = 8;
+    });
   }
   loadUsers() {
     this.usersService
@@ -32,16 +37,13 @@ export class UsersListComponent implements OnInit {
 
   selectUser(user: User) {
     this.usersService.raiseSubject(user);
-    this.filteredUsers = this.filteredUsers.filter((u) => u.id !== user.id);
   }
-
 
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
     const windowHeight = window.innerHeight;
     const scrollY = window.scrollY;
     const scrollHeight = document.documentElement.scrollHeight;
-
     if (scrollY + windowHeight >= scrollHeight) {
       this.loadMoreUsers();
     }
@@ -55,6 +57,4 @@ export class UsersListComponent implements OnInit {
         this.filteredUsers = [...this.filteredUsers, ...newUsers];
       });
   }
-
-
 }

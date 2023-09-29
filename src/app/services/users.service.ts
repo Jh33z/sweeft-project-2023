@@ -13,6 +13,7 @@ export class UsersService {
   getAllUsers() {
     return this.http.get<User[]>(this.url);
   }
+
   getUsersWithPagination(page: number, pageSize: number): Observable<User[]> {
     const params = {
       _page: page.toString(),
@@ -20,10 +21,12 @@ export class UsersService {
     };
     return this.http.get<User[]>(this.url, { params });
   }
-  
+
   subject = new BehaviorSubject<User>(null);
 
   raiseSubject(data: User) {
     this.subject.next(data);
   }
+
+  paginationSubject = new Subject();
 }

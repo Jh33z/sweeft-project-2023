@@ -13,15 +13,16 @@ export class UserComponent implements OnInit {
   @Input() user!: User;
   selectedUser: User;
 
-  
   ngOnInit(): void {
     this.userService.subject.subscribe((user) => {
       this.selectedUser = user;
     });
+    
   }
 
   openUser(user: User) {
     this.router.navigate(['user-details', user.id]);
     this.userService.raiseSubject(user);
+    this.userService.paginationSubject.next(null);
   }
 }
