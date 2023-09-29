@@ -1,0 +1,15 @@
+<div class="main-container" *ngIf="users">
+  <div class="photo-div">
+    <img [src]="users.profilePic" alt="user" />
+  </div>
+  <div class="content-div">
+    <div class="full-name">
+      <span class="first-name">{{ users.firstName }}</span>
+      <span class="last-name">{{ users.lastName }}</span>
+    </div>
+    <p class="description">
+      {{ users.description }}
+    </p>
+  </div>
+  <app-users-list></app-users-list>
+</div>

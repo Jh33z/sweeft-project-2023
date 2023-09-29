@@ -1,0 +1,14 @@
+<div class="main-container" (click)="openUser(user)" routerLink="homepage">
+  <div class="photo-div">
+    <img [src]="user.profilePic" alt="user" />
+  </div>
+  <div>
+    <div class="full-name">
+      <span class="first-name">{{ user.firstName }}</span>
+      <span class="last-name">{{ user.lastName }}</span>
+    </div>
+    <p class="description">
+      {{ user.description }}
+    </p>
+  </div>
+</div>

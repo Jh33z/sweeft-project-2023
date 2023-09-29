@@ -1,0 +1,8 @@
+<div class="main-container">
+  <app-user
+    [user]="user"
+    *ngFor="let user of filteredUsers"
+    (click)="selectUser(user)"
+  ></app-user>
+
+</div>
